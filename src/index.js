@@ -1,5 +1,3 @@
 import generateDiff from './cli/generate-diff.js';
 
-export {
-    generateDiff,
-};
+export default generateDiff;
