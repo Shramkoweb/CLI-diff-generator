@@ -1,11 +1,14 @@
 {
   "name": "diff-generator",
   "version": "0.0.1",
-  "description": "Utility for comparing two files and displaying their differences.",
-  "main": "index.js",
+  "description": "Compares two configuration files and shows a difference.",
+  "main": "./src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gendiff": "./bin/gendiff.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +22,10 @@
     "yaml",
     "ini",
     "config",
-    "js"
+    "js",
+    "cli",
+    "args",
+    "argv"
   ],
   "author": "Serhii Shramko <shramko.web@yahoo.com>",
   "license": "ISC",
