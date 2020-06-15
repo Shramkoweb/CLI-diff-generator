@@ -1,11 +1,14 @@
 {
   "name": "diff-generator",
   "version": "0.0.1",
-  "description": "Utility for comparing two files and displaying their differences.",
-  "main": "index.js",
+  "description": "Compares two configuration files and shows a difference.",
+  "main": "./src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "gendiff": "./bin/gendiff.js"
   },
   "repository": {
     "type": "git",
@@ -19,12 +22,24 @@
     "yaml",
     "ini",
     "config",
-    "js"
+    "js",
+    "cli",
+    "args",
+    "argv"
   ],
   "author": "Serhii Shramko <shramko.web@yahoo.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Shramkoweb/frontend-project-lvl2/issues"
   },
-  "homepage": "https://github.com/Shramkoweb/frontend-project-lvl2#readme"
+  "homepage": "https://github.com/Shramkoweb/frontend-project-lvl2#readme",
+  "dependencies": {
+    "commander": "^5.1.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  }
 }
