@@ -4,7 +4,7 @@ import _ from 'lodash';
 
 import packageJsonFile from '../../package.json';
 
-const compare = (firstFile, secondFile) => {
+export const compare = (firstFile, secondFile) => {
   const firstObjectKeys = Object.keys(firstFile);
   const secondObjectKeys = Object.keys(secondFile);
 
@@ -20,7 +20,7 @@ const compare = (firstFile, secondFile) => {
       }
 
       // иначе у первого изменения есть флаг -, а у второго +
-      return [...accumulator, `  - ${currentKey}: ${firstFile[currentKey]}`, `  + ${currentKey}:${secondFile[currentKey]}`];
+      return [...accumulator, `  - ${currentKey}: ${firstFile[currentKey]}`, `  + ${currentKey}: ${secondFile[currentKey]}`];
     }
 
     // если у первого есть ключ, а у второго нет
