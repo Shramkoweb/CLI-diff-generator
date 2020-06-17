@@ -3,10 +3,11 @@ import fs from 'fs';
 
 import { compare } from '../src/cli/generate-diff';
 
-// TODO refactor to __dirname
-const beforePathToJSON = '__tests__/__fixtures__/before.json';
-const afterPathToJSON = '__tests__/__fixtures__/after.json';
-const resultPath = '__tests__/__fixtures__/compareResult.txt';
+const dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const beforePathToJSON = path.resolve(dirname, '__fixtures__/before.json');
+const afterPathToJSON = path.resolve(dirname, '__fixtures__/after.json');
+const resultPath = path.resolve(dirname, '__fixtures__/compareResult.txt');
 
 describe('Test compare function', () => {
   test('Shouldd correct compare flat Json object', () => {
