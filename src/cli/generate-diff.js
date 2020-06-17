@@ -1,8 +1,7 @@
-import commander from 'commander';
-import fs from 'fs';
 import _ from 'lodash';
-
-import packageJsonFile from '../../package.json';
+// не очень нравится то что ф-я называется parsers но при дефолтном
+// экспорте вроде не очень менять именование
+import parsers from '../parsers.js';
 
 export const compare = (firstFile, secondFile) => {
   const firstObjectKeys = Object.keys(firstFile);
@@ -35,21 +34,9 @@ export const compare = (firstFile, secondFile) => {
 
   return ['{', ...compared, '}\n'].join('\n');
 };
+export default (firstFilePath, secondFilePath) => {
+  const firstFile = parsers(firstFilePath);
+  const secondFile = parsers(secondFilePath);
 
-const generateDiff = (processArgv) => {
-  commander
-    .version(packageJsonFile.version)
-    .description(packageJsonFile.description)
-    .option('-f, --format [type]', 'output format')
-    .arguments('<filepath1> <filepath2>')
-    .action((firstFilePath, secondFilePath) => {
-      const firstFile = JSON.parse(fs.readFileSync(firstFilePath));
-      const secondFile = JSON.parse(fs.readFileSync(secondFilePath));
-
-      console.log(compare(firstFile, secondFile));
-    });
-
-  commander.parse(processArgv);
+  return compare(firstFile, secondFile);
 };
-
-export default generateDiff;

@@ -1,6 +1,6 @@
 {
   "name": "diff-generator",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Compares two configuration files and shows a difference.",
   "main": "./src/index.js",
   "type": "module",
@@ -35,6 +35,7 @@
   "homepage": "https://github.com/Shramkoweb/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^5.1.0",
+    "js-yaml": "^3.14.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
