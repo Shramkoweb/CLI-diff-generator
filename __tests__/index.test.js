@@ -1,23 +1,31 @@
 import path from 'path';
 import fs from 'fs';
 
-import { compare } from '../src/cli/generate-diff';
+import generateDiff from '../src/cli/generate-diff';
 
 const dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const beforePathToJSON = path.resolve(dirname, '__fixtures__/before.json');
 const afterPathToJSON = path.resolve(dirname, '__fixtures__/after.json');
+const beforePathToYAML = path.resolve(dirname, '__fixtures__/before.yaml');
+const afterPathToYAML = path.resolve(dirname, '__fixtures__/after.yaml');
 const resultPath = path.resolve(dirname, '__fixtures__/compareResult.txt');
 
-describe('Test compare function', () => {
-  test('Shouldd correct compare flat Json object', () => {
+describe('Test generateDiff function', () => {
+  test('Should correct compare JSON', () => {
     const firstFilePath = path.resolve(beforePathToJSON);
     const secondFilePath = path.resolve(afterPathToJSON);
     const resultFilePath = path.resolve(resultPath);
 
-    const firstFile = JSON.parse(fs.readFileSync(firstFilePath));
-    const secondFile = JSON.parse(fs.readFileSync(secondFilePath));
+    expect(generateDiff(firstFilePath, secondFilePath))
+      .toBe(fs.readFileSync(resultFilePath, 'utf-8'));
+  });
+  test('Should correct compare YAML', () => {
+    const firstFilePath = path.resolve(beforePathToYAML);
+    const secondFilePath = path.resolve(afterPathToYAML);
+    const resultFilePath = path.resolve(resultPath);
 
-    expect(compare(firstFile, secondFile)).toBe(fs.readFileSync(resultFilePath, 'utf-8'));
+    expect(generateDiff(firstFilePath, secondFilePath))
+      .toBe(fs.readFileSync(resultFilePath, 'utf-8'));
   });
 });
