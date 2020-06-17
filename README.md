@@ -23,3 +23,7 @@ Section "group2" deleted.
 #### Сравнение .json файлов
 
 [![asciicast](https://asciinema.org/a/uQxDwB5nyOBcwD4arZZWrGJcq.svg)](https://asciinema.org/a/uQxDwB5nyOBcwD4arZZWrGJcq)
+
+#### Сравнение .yaml файлов
+
+[![asciicast](https://asciinema.org/a/hAqzxjm7lm8Y4cwkL2W7MkBqe.svg)](https://asciinema.org/a/hAqzxjm7lm8Y4cwkL2W7MkBqe)
