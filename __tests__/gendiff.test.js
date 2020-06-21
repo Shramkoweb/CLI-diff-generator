@@ -2,6 +2,8 @@ import path from 'path';
 import fs from 'fs';
 
 import generateDiff from '../src/cli/generate-diff';
+import makeStylishFormat from '../src/formaters/stylish';
+import generateAst from '../src/ast';
 
 // utils
 const dirname = path.dirname(new URL(import.meta.url).pathname);
@@ -19,5 +21,14 @@ describe('Test generateDiff function', () => {
     const expected = readFileContent(getFixturePath('compareResult.txt'));
 
     expect(generateDiff(pathToFile1, pathToFile12)).toEqual(expected);
+  });
+
+  test('asdas', () => {
+
+    const pathToFile1 = getFixturePath(`before-nested.json`);
+    const pathToFile12 = getFixturePath(`after-nested.json`);
+    const expected = readFileContent(getFixturePath('compareResult.txt'));
+
+    expect(makeStylishFormat(generateAst(pathToFile1, pathToFile12))).toEqual(expected);
   });
 });
