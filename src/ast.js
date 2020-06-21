@@ -10,7 +10,7 @@ export const nodeState = {
 
 const generateAst = (firstData, secondData) => {
   // Получаем массив уникальных ключей в множестве
-  const unitedKeys = _.union(_.keys(firstData), _.keys(secondData)).sort();
+  const unitedKeys = _.union(_.keys(firstData), _.keys(secondData));
 
   // Создание AST дерева
   return unitedKeys.map((key) => {
