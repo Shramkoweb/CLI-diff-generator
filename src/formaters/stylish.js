@@ -48,40 +48,61 @@ const first = {
   }
 };
 
-const ident = ' '.repeat(4);
+const singleIndentSpaceCount = 4;
 
 const stringify = (data, treeDepth) => {
+  const op = ' '.repeat((treeDepth + 1) * singleIndentSpaceCount + singleIndentSpaceCount);
+  const ident = ' '.repeat(treeDepth * singleIndentSpaceCount + singleIndentSpaceCount);
+
   const stringifyObject = (object) => {
     const string = _.keys(object)
-      .map((key) => `${key}:  ${stringify(object[key])}`)
+      .map((key) => `${op}${key}:  ${stringify(object[key])}`)
       .join('\n');
 
-    return `{${string}}`;
+    return `{\n${string}\n${ident}}`;
   };
   return _.isObject(data) ? stringifyObject(data) : `${data}`;
 };
 
 const nodeStateToFormatting = {
-  [nodeState.added]: ({ name, value }, treeDepth) => `+${name}: ${stringify(value, treeDepth)}`,
-  [nodeState.deleted]: ({ name, value }, treeDepth) => `-${name}: ${stringify(value, treeDepth)}`,
-  [nodeState.unchanged]: ({ name, value }, treeDepth) => `${name}: ${stringify(value, treeDepth)}`,
-  [nodeState.nested]: ({ name, children }, treeDepth) => `${name}: ${makeStylishFormat(children, treeDepth + 1)}`,
+  [nodeState.added]: ({ name, value }, treeDepth) => {
+    const ident = ' '.repeat(treeDepth * singleIndentSpaceCount + singleIndentSpaceCount / 2);
+
+    return `${ident}+ ${name}: ${stringify(value, treeDepth)}`;
+  },
+  [nodeState.deleted]: ({ name, value }, treeDepth) => {
+    const ident = ' '.repeat(treeDepth * singleIndentSpaceCount + singleIndentSpaceCount / 2);
+
+    return `${ident}- ${name}: ${stringify(value, treeDepth)}`;
+  },
+  [nodeState.unchanged]: ({ name, value }, treeDepth) => {
+    const ident = ' '.repeat(treeDepth * singleIndentSpaceCount + singleIndentSpaceCount);
+
+    return `${ident}${name}: ${stringify(value, treeDepth)}`;
+  },
+  [nodeState.nested]: ({ name, children }, treeDepth) => {
+    const ident = ' '.repeat(treeDepth * singleIndentSpaceCount + singleIndentSpaceCount);
+
+    return `${ident}${name}: ${makeStylishFormat(children, treeDepth + 1)}`;
+  },
   [nodeState.changed]: (node, treeDepth) => {
     const { name, addedValue, removedValue } = node;
-    const addedString = nodeStateToFormatting[nodeState.added]({ name, value: addedValue });
-    const deletedString = nodeStateToFormatting[nodeState.deleted]({ name, value: removedValue });
+    const addedString = nodeStateToFormatting[nodeState.added]({ name, value: addedValue }, treeDepth);
+    const deletedString = nodeStateToFormatting[nodeState.deleted]({ name, value: removedValue }, treeDepth);
 
     return [addedString, deletedString];
   },
 };
 
 const makeStylishFormat = (diff, treeDepth = 0) => {
+  const braceIndent = ' '.repeat(treeDepth * singleIndentSpaceCount);
+
   const formattedDiff = diff
     .map((element) => nodeStateToFormatting[element.state](element, treeDepth))
     .flat()
     .join('\n');
 
-  return `{\n${formattedDiff}\n}`;
+  return `{\n${formattedDiff}\n${braceIndent}}`;
 };
 
 console.log(makeStylishFormat(generateAst(first, second)));
