@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import ini from 'ini';
 
+// TODO ini convert number to string need refactor
 const ParserType = {
   '.json': JSON.parse,
   '.yaml': yaml.safeLoad,

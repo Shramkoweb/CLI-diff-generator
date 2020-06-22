@@ -1,12 +1,14 @@
 import path from 'path';
 import fs from 'fs';
 
-import generateDiff from '../src/cli/generate-diff';
+import generateDiff from '../src/index';
+
+// custom dirname
+const dirname = path.dirname(new URL(import.meta.url).pathname);
 
 // utils
-const dirname = path.dirname(new URL(import.meta.url).pathname);
 const getFixturePath = (fileName) => path.resolve(dirname, '__fixtures__/', `${fileName}`);
-const readFileContent = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf-8');
+const readFileContent = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf-8').trim();
 
 describe('Test generateDiff function', () => {
   test.each([
@@ -16,8 +18,8 @@ describe('Test generateDiff function', () => {
   ])('generateDiff(%s)', (fileFormat) => {
     const pathToFile1 = getFixturePath(`before.${fileFormat}`);
     const pathToFile12 = getFixturePath(`after.${fileFormat}`);
-    const expected = readFileContent(getFixturePath('compareResult.txt'));
+    const expected = readFileContent(getFixturePath('stylishResult.txt'));
 
-    expect(generateDiff(pathToFile1, pathToFile12)).toEqual(expected);
+    expect(generateDiff(pathToFile1, pathToFile12, 'stylish')).toEqual(expected);
   });
 });

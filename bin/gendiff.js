@@ -7,10 +7,10 @@ import packageJsonFile from '../package.json';
 commander
   .version(packageJsonFile.version)
   .description(packageJsonFile.description)
-  .option('-f, --format [type]', 'output format')
+  .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((firstFilePath, secondFilePath) => {
-    console.log(generateDiff(firstFilePath, secondFilePath));
+    console.log(generateDiff(firstFilePath, secondFilePath, commander.format));
   });
 
 commander.parse(process.argv);
