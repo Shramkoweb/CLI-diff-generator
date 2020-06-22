@@ -2,19 +2,19 @@ import _ from 'lodash';
 
 import { nodeState } from '../ast.js';
 
-const singleIndentSpaceCount = 4;
+const indentSize = 4;
 
 const getIndent = (depth) => ' '.repeat(depth);
 
 const makeStylishFormat = (diff, treeDepth = 0) => {
-  const defaultIndentLength = treeDepth * singleIndentSpaceCount;
+  const defaultIndentLength = treeDepth * indentSize;
 
-  const largeIndent = getIndent(defaultIndentLength + singleIndentSpaceCount);
-  const nestedObjectIndent = getIndent((treeDepth + 1) * singleIndentSpaceCount + singleIndentSpaceCount);
-  const smallIndent = getIndent(defaultIndentLength + singleIndentSpaceCount / 2);
+  const largeIndent = getIndent(defaultIndentLength + indentSize);
+  const nestedObjectIndent = getIndent((treeDepth + 1) * indentSize + indentSize);
+  const smallIndent = getIndent(defaultIndentLength + indentSize / 2);
   const nestedIdent = getIndent(defaultIndentLength);
 
-  const stringify = (data, treeDepth) => {
+  const stringify = (data) => {
     const stringifyObject = (object) => {
       const string = _.keys(object)
         .map((key) => `${nestedObjectIndent}${key}:  ${stringify(object[key])}`)
@@ -26,22 +26,17 @@ const makeStylishFormat = (diff, treeDepth = 0) => {
   };
 
   const nodeStateToFormatting = {
-    [nodeState.added]: ({ name, value }, treeDepth) => {
-      return `${smallIndent}+ ${name}: ${stringify(value, treeDepth)}`;
-    },
-    [nodeState.deleted]: ({ name, value }, treeDepth) => {
-      return `${smallIndent}- ${name}: ${stringify(value, treeDepth)}`;
-    },
-    [nodeState.unchanged]: ({ name, value }, treeDepth) => {
-      return `${largeIndent}${name}: ${stringify(value, treeDepth)}`;
-    },
-    [nodeState.nested]: ({ name, children }, treeDepth) => {
-      return `${largeIndent}${name}: ${makeStylishFormat(children, treeDepth + 1)}`;
-    },
-    [nodeState.changed]: (node, treeDepth) => {
+    [nodeState.added]: ({ name, value }) => `${smallIndent}+ ${name}: ${stringify(value, treeDepth)}`,
+    [nodeState.deleted]: ({ name, value }) => `${smallIndent}- ${name}: ${stringify(value, treeDepth)}`,
+    [nodeState.unchanged]: ({ name, value }) => `${largeIndent}${name}: ${stringify(value, treeDepth)}`,
+    [nodeState.nested]: ({ name, children }) => `${largeIndent}${name}: ${makeStylishFormat(children, treeDepth + 1)}`,
+    [nodeState.changed]: (node) => {
       const { name, addedValue, removedValue } = node;
-      const addedString = nodeStateToFormatting[nodeState.added]({ name, value: addedValue }, treeDepth);
-      const deletedString = nodeStateToFormatting[nodeState.deleted]({ name, value: removedValue }, treeDepth);
+      const getAddString = nodeStateToFormatting[nodeState.added];
+      const getRemovedString = nodeStateToFormatting[nodeState.deleted];
+
+      const addedString = getAddString({ name, value: addedValue }, treeDepth);
+      const deletedString = getRemovedString({ name, value: removedValue }, treeDepth);
 
       return [addedString, deletedString];
     },
