@@ -12,12 +12,11 @@ const getFixturePath = (fileName) => path.resolve(dirname, '__fixtures__/', `${f
 const readFileContent = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf-8').trim();
 
 describe('Test generateDiff function', () => {
-  // TODO REFACTOR ?
-  let testResults;
+  let referenceResult;
   const testData = ['json', 'yaml', 'ini'];
 
   beforeAll(() => {
-    testResults = {
+    referenceResult = {
       stylish: readFileContent('stylishResult.txt'),
       plain: readFileContent('plainResult.txt'),
       json: readFileContent('jsonResult.txt'),
@@ -28,8 +27,14 @@ describe('Test generateDiff function', () => {
     const pathToFile1 = getFixturePath(`before.${fileFormat}`);
     const pathToFile2 = getFixturePath(`after.${fileFormat}`);
 
-    expect(generateDiff(pathToFile1, pathToFile2, 'stylish')).toBe(testResults.stylish);
-    expect(generateDiff(pathToFile1, pathToFile2, 'plain')).toBe(testResults.plain);
-    expect(generateDiff(pathToFile1, pathToFile2, 'json')).toBe(testResults.json);
+    const expectedResult = {
+      stylish: generateDiff(pathToFile1, pathToFile2, 'stylish'),
+      plain: generateDiff(pathToFile1, pathToFile2, 'plain'),
+      json: generateDiff(pathToFile1, pathToFile2, 'json'),
+    };
+
+    expect(expectedResult.stylish).toBe(referenceResult.stylish);
+    expect(expectedResult.plain).toBe(referenceResult.plain);
+    expect(expectedResult.json).toBe(referenceResult.json);
   });
 });

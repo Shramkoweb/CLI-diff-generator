@@ -20,10 +20,14 @@ Setting "group1.baz" changed from "bas" to "bars".
 Section "group2" deleted.
 ```
 
-#### Сравнение .json файлов
+#### Сравнение файлов с JSON выводом.
 
-[![asciicast](https://asciinema.org/a/uQxDwB5nyOBcwD4arZZWrGJcq.svg)](https://asciinema.org/a/uQxDwB5nyOBcwD4arZZWrGJcq)
+[![asciicast](https://asciinema.org/a/Mf12iQsBgMs3KtShNDxeY2t4S.svg)](https://asciinema.org/a/Mf12iQsBgMs3KtShNDxeY2t4S)
 
-#### Сравнение .yaml файлов
+#### Сравнение файлов с STYLISH выводом.
 
-[![asciicast](https://asciinema.org/a/hAqzxjm7lm8Y4cwkL2W7MkBqe.svg)](https://asciinema.org/a/hAqzxjm7lm8Y4cwkL2W7MkBqe)
+[![asciicast](https://asciinema.org/a/l0lTgJzWPUOsGidSmaptSsiHj.svg)](https://asciinema.org/a/l0lTgJzWPUOsGidSmaptSsiHj)
+
+#### Сравнение файлов с PLAIN выводом.
+
+[![asciicast](https://asciinema.org/a/7q3RtpIpRTu6uEtIIrGgT32fb.svg)](https://asciinema.org/a/7q3RtpIpRTu6uEtIIrGgT32fb)
