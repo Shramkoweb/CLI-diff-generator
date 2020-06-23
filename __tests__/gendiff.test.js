@@ -20,6 +20,7 @@ describe('Test generateDiff function', () => {
     testResults = {
       stylish: readFileContent('stylishResult.txt'),
       plain: readFileContent('plainResult.txt'),
+      json: readFileContent('jsonResult.txt'),
     };
   });
 
@@ -29,5 +30,6 @@ describe('Test generateDiff function', () => {
 
     expect(generateDiff(pathToFile1, pathToFile2, 'stylish')).toBe(testResults.stylish);
     expect(generateDiff(pathToFile1, pathToFile2, 'plain')).toBe(testResults.plain);
+    expect(generateDiff(pathToFile1, pathToFile2, 'json')).toBe(testResults.json);
   });
 });
