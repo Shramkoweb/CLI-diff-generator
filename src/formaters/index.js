@@ -1,8 +1,9 @@
 import makeStylishFormat from './stylish.js';
+import makePlainFormat from './plain.js';
 
 export const FormatterType = {
   stylish: makeStylishFormat,
-  plain: 'plain',
+  plain: makePlainFormat,
   json: 'json',
 };
 
