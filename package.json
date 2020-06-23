@@ -1,6 +1,6 @@
 {
   "name": "diff-generator",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Compares two configuration files and shows a difference.",
   "main": "./src/index.js",
   "type": "module",
@@ -37,7 +37,8 @@
     "commander": "^5.1.0",
     "ini": "^1.3.5",
     "js-yaml": "^3.14.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "@jest/globals": "^26.0.1"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
