@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { nodeState } from '../ast.js';
+import { nodeStates } from '../ast.js';
 
 const stringify = (value) => {
   const formattedData = (typeof value === 'string') ? `'${value}'` : value;
@@ -9,19 +9,16 @@ const stringify = (value) => {
 
 const makePlainFormat = (diff, path = '') => {
   const nodeStateToFormatting = {
-    [nodeState.added]: (node) => `Property '${path}${node.name}' was added with value: ${stringify(node.value)}`,
-    [nodeState.deleted]: (node) => `Property '${path}${node.name}' was deleted`,
-    [nodeState.nested]: (node) => makePlainFormat(node.children, `${path.concat(node.name, '.')}`),
-    [nodeState.changed]: (node) => `Property '${path}${node.name}' was changed from ${stringify(node.removedValue)} to ${stringify(node.addedValue)}`,
-    [nodeState.unchanged]: () => [],
+    [nodeStates.ADDED]: (node) => `Property '${path}${node.name}' was added with value: ${stringify(node.value)}`,
+    [nodeStates.DELETED]: (node) => `Property '${path}${node.name}' was deleted`,
+    [nodeStates.NESTED]: (node) => makePlainFormat(node.children, `${path.concat(node.name, '.')}`),
+    [nodeStates.CHANGED]: (node) => `Property '${path}${node.name}' was changed from ${stringify(node.removedValue)} to ${stringify(node.addedValue)}`,
+    [nodeStates.UNCHANGED]: () => [],
   };
 
-  const formattedDiff = diff
-    .map((element) => nodeStateToFormatting[element.state](element))
-    .flat()
+  return diff
+    .flatMap((element) => nodeStateToFormatting[element.state](element))
     .join('\n');
-
-  return `${formattedDiff}`;
 };
 
 export default makePlainFormat;

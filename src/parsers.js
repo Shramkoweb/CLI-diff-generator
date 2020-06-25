@@ -2,7 +2,7 @@ import yaml from 'js-yaml';
 import ini from 'ini';
 import _ from 'lodash';
 
-const iniParse = (data) => {
+const parseIni = (data) => {
   const parsedData = ini.parse(data);
 
   const checkNumbers = (obj) => {
@@ -29,10 +29,10 @@ const iniParse = (data) => {
   return checkNumbers(parsedData);
 };
 
-const ParserType = {
+const PARSERS_MAPPING = {
   '.json': JSON.parse,
   '.yaml': yaml.safeLoad,
-  '.ini': iniParse,
+  '.ini': parseIni,
 };
 
-export default (fileExtension) => ParserType[fileExtension];
+export default (fileExtension) => PARSERS_MAPPING[fileExtension];

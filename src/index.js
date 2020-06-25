@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import getParser from './parsers.js';
 import generateAst from './ast.js';
-import formatter from './formaters/index.js';
+import makeFormat from './formaters/index.js';
 
 export default (firstFilePath, secondFilePath, format) => {
   const firstFileExtension = path.extname(firstFilePath);
@@ -16,5 +16,5 @@ export default (firstFilePath, secondFilePath, format) => {
 
   const ast = generateAst(firstData, secondData);
 
-  return formatter(format, ast);
+  return makeFormat(ast, format);
 };
