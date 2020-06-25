@@ -5,19 +5,24 @@ import _ from 'lodash';
 const parseIni = (data) => {
   const parsedData = ini.parse(data);
 
-  const checkNumbers = (obj) => {
+  const convertStringsToNumbers = (obj) => {
     const keys = _.keys(obj);
 
     return keys.reduce((acc, key) => {
       const value = obj[key];
 
       if (_.isObject(value)) {
-        acc[key] = checkNumbers(value);
+        acc[key] = convertStringsToNumbers(value);
         return acc;
       }
 
-      if (Number(value) && !_.isBoolean(value)) {
-        acc[key] = Number(value);
+      /* ini библиотека во время парсинга подменяет числа на строки
+      *  здесь я конвертирую строки в число, и если это например '11'
+      * то мы получим число 11, иначе это другой типа
+      * и мы его не трогаем */
+      const parsed = parseInt(value, 10);
+      if (parsed) {
+        acc[key] = parsed;
         return acc;
       }
 
@@ -26,7 +31,7 @@ const parseIni = (data) => {
     }, {});
   };
 
-  return checkNumbers(parsedData);
+  return convertStringsToNumbers(parsedData);
 };
 
 const PARSERS_MAPPING = {
