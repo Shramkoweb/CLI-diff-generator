@@ -3,6 +3,8 @@ import ini from 'ini';
 import keys from 'lodash/keys';
 import isObject from 'lodash/isObject';
 
+import { fileFormats } from './constants.js';
+
 const parseIni = (data) => {
   const parsedData = ini.parse(data);
 
@@ -32,9 +34,9 @@ const parseIni = (data) => {
 };
 
 const PARSERS_MAPPING = {
-  '.json': JSON.parse,
-  '.yaml': yaml.safeLoad,
-  '.ini': parseIni,
+  [fileFormats.JSON]: JSON.parse,
+  [fileFormats.YAML]: yaml.safeLoad,
+  [fileFormats.INI]: parseIni,
 };
 
-export default (fileExtension) => PARSERS_MAPPING[fileExtension];
+export default (format) => PARSERS_MAPPING[format];

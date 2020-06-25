@@ -1,7 +1,7 @@
 import keys from 'lodash/keys';
 import isObject from 'lodash/isObject';
 
-import { nodeStates } from '../ast.js';
+import { nodeStates } from '../constants';
 
 const indentSize = 4;
 
@@ -44,8 +44,7 @@ const makeStylishFormat = (diff, treeDepth = 0) => {
   };
 
   const formattedDiff = diff
-    .map((element) => nodeStateToFormatting[element.state](element, treeDepth))
-    .flat()
+    .flatMap((element) => nodeStateToFormatting[element.state](element, treeDepth))
     .join('\n');
 
   return `{\n${formattedDiff}\n${nestedIdent}}`;

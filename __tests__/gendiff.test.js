@@ -1,12 +1,8 @@
-import path from 'path';
-import fs from 'fs';
 import { beforeAll, describe, expect } from '@jest/globals';
 
-import generateDiff from '../src/index';
+import { getFixtureContent, getFixturePath } from '../src/utils.js';
 
-// utils
-const getFixturePath = (fileName) => path.resolve('__tests__', '__fixtures__', fileName);
-const getFixtureContent = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf-8').trim();
+import generateDiff from '../src/index.js';
 
 describe('Test generateDiff function', () => {
   let referenceResult;

@@ -1,7 +1,7 @@
 import isObject from 'lodash/isObject';
 import isString from 'lodash/isString';
 
-import { nodeStates } from '../ast.js';
+import { nodeStates } from '../constants.js';
 
 const stringify = (value) => {
   if (isObject(value)) {

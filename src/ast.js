@@ -2,14 +2,7 @@ import union from 'lodash/union';
 import isObject from 'lodash/isObject';
 import keys from 'lodash/keys';
 import has from 'lodash/has';
-
-export const nodeStates = {
-  ADDED: 'added',
-  DELETED: 'deleted',
-  UNCHANGED: 'unchanged',
-  NESTED: 'nested',
-  CHANGED: 'changed',
-};
+import { nodeStates } from './constants.js';
 
 const generateAst = (firstData, secondData) => {
   const unitedKeys = union(keys(firstData), keys(secondData));
