@@ -5,7 +5,7 @@ import has from 'lodash/has';
 import { nodeStates } from './constants.js';
 
 const generateAst = (firstData, secondData) => {
-  const unitedKeys = union(keys(firstData), keys(secondData));
+  const unitedKeys = union(keys(firstData), keys(secondData)).sort();
 
   return unitedKeys.map((key) => {
     const firstValue = firstData[key];
