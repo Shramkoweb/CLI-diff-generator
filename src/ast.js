@@ -11,6 +11,22 @@ const generateAst = (firstData, secondData) => {
     const firstValue = firstData[key];
     const secondValue = secondData[key];
 
+    if (!has(secondData, key)) {
+      return {
+        name: key,
+        state: nodeStates.DELETED,
+        value: firstValue,
+      };
+    }
+
+    if (!has(firstData, key)) {
+      return {
+        name: key,
+        state: nodeStates.ADDED,
+        value: secondValue,
+      };
+    }
+
     if (isObject(firstValue) && isObject(secondValue)) {
       return {
         name: key,
@@ -19,35 +35,19 @@ const generateAst = (firstData, secondData) => {
       };
     }
 
-    if (has(firstData, key) && !has(secondData, key)) {
+    if (firstValue !== secondValue) {
       return {
         name: key,
-        state: nodeStates.DELETED,
-        value: firstValue,
-      };
-    }
-
-    if (has(secondData, key) && !has(firstData, key)) {
-      return {
-        name: key,
-        state: nodeStates.ADDED,
-        value: secondValue,
-      };
-    }
-
-    if (firstValue === secondValue) {
-      return {
-        name: key,
-        state: nodeStates.UNCHANGED,
-        value: firstValue,
+        state: nodeStates.CHANGED,
+        removedValue: firstValue,
+        addedValue: secondValue,
       };
     }
 
     return {
       name: key,
-      state: nodeStates.CHANGED,
-      removedValue: firstValue,
-      addedValue: secondValue,
+      state: nodeStates.UNCHANGED,
+      value: firstValue,
     };
   });
 };
