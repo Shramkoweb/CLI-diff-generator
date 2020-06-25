@@ -1,6 +1,7 @@
-import _ from 'lodash';
+import keys from 'lodash/keys';
+import isObject from 'lodash/isObject';
 
-import { nodeState } from '../ast.js';
+import { nodeStates } from '../constants';
 
 const indentSize = 4;
 
@@ -16,24 +17,24 @@ const makeStylishFormat = (diff, treeDepth = 0) => {
 
   const stringify = (data) => {
     const stringifyObject = (object) => {
-      const string = _.keys(object)
+      const string = keys(object)
         .map((key) => `${nestedObjectIndent}${key}:  ${stringify(object[key])}`)
         .join('\n');
 
       return `{\n${string}\n${largeIndent}}`;
     };
-    return _.isObject(data) ? stringifyObject(data) : `${data}`;
+    return isObject(data) ? stringifyObject(data) : `${data}`;
   };
 
   const nodeStateToFormatting = {
-    [nodeState.added]: ({ name, value }) => `${smallIndent}+ ${name}: ${stringify(value, treeDepth)}`,
-    [nodeState.deleted]: ({ name, value }) => `${smallIndent}- ${name}: ${stringify(value, treeDepth)}`,
-    [nodeState.unchanged]: ({ name, value }) => `${largeIndent}${name}: ${stringify(value, treeDepth)}`,
-    [nodeState.nested]: ({ name, children }) => `${largeIndent}${name}: ${makeStylishFormat(children, treeDepth + 1)}`,
-    [nodeState.changed]: (node) => {
+    [nodeStates.ADDED]: ({ name, value }) => `${smallIndent}+ ${name}: ${stringify(value, treeDepth)}`,
+    [nodeStates.DELETED]: ({ name, value }) => `${smallIndent}- ${name}: ${stringify(value, treeDepth)}`,
+    [nodeStates.UNCHANGED]: ({ name, value }) => `${largeIndent}${name}: ${stringify(value, treeDepth)}`,
+    [nodeStates.NESTED]: ({ name, children }) => `${largeIndent}${name}: ${makeStylishFormat(children, treeDepth + 1)}`,
+    [nodeStates.CHANGED]: (node) => {
       const { name, addedValue, removedValue } = node;
-      const getAddString = nodeStateToFormatting[nodeState.added];
-      const getRemovedString = nodeStateToFormatting[nodeState.deleted];
+      const getAddString = nodeStateToFormatting[nodeStates.ADDED];
+      const getRemovedString = nodeStateToFormatting[nodeStates.DELETED];
 
       const addedString = getAddString({ name, value: addedValue }, treeDepth);
       const deletedString = getRemovedString({ name, value: removedValue }, treeDepth);
@@ -43,8 +44,7 @@ const makeStylishFormat = (diff, treeDepth = 0) => {
   };
 
   const formattedDiff = diff
-    .map((element) => nodeStateToFormatting[element.state](element, treeDepth))
-    .flat()
+    .flatMap((element) => nodeStateToFormatting[element.state](element, treeDepth))
     .join('\n');
 
   return `{\n${formattedDiff}\n${nestedIdent}}`;

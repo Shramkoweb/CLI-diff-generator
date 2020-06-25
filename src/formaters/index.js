@@ -1,10 +1,10 @@
 import makeStylishFormat from './stylish.js';
 import makePlainFormat from './plain.js';
 
-export const FormatterType = {
+export const FORMATTERS_MAPPING = {
   stylish: makeStylishFormat,
   plain: makePlainFormat,
   json: JSON.stringify,
 };
 
-export default (type, data) => FormatterType[type](data);
+export default (data, type) => FORMATTERS_MAPPING[type](data);

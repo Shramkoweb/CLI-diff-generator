@@ -1,15 +1,8 @@
-import path from 'path';
-import fs from 'fs';
 import { beforeAll, describe, expect } from '@jest/globals';
 
-import generateDiff from '../src/index';
+import { getFixtureContent, getFixturePath } from '../src/utils.js';
 
-// custom dirname
-const dirname = path.dirname(new URL(import.meta.url).pathname);
-
-// utils
-const getFixturePath = (fileName) => path.resolve(dirname, '__fixtures__/', `${fileName}`);
-const readFileContent = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf-8').trim();
+import generateDiff from '../src/index.js';
 
 describe('Test generateDiff function', () => {
   let referenceResult;
@@ -17,9 +10,9 @@ describe('Test generateDiff function', () => {
 
   beforeAll(() => {
     referenceResult = {
-      stylish: readFileContent('stylishResult.txt'),
-      plain: readFileContent('plainResult.txt'),
-      json: readFileContent('jsonResult.txt'),
+      stylish: getFixtureContent('stylishResult.txt'),
+      plain: getFixtureContent('plainResult.txt'),
+      json: getFixtureContent('jsonResult.txt'),
     };
   });
 

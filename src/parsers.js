@@ -1,38 +1,40 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
-import _ from 'lodash';
+import isObject from 'lodash/isObject';
+import reduce from 'lodash/reduce';
 
-const iniParse = (data) => {
+import { fileFormats } from './constants.js';
+
+const parseIni = (data) => {
   const parsedData = ini.parse(data);
 
-  const checkNumbers = (obj) => {
-    const keys = _.keys(obj);
-
-    return keys.reduce((acc, key) => {
-      const value = obj[key];
-
-      if (_.isObject(value)) {
-        acc[key] = checkNumbers(value);
-        return acc;
-      }
-
-      if (Number(value) && !_.isBoolean(value)) {
-        acc[key] = Number(value);
-        return acc;
-      }
-
-      acc[key] = obj[key];
+  const convertStringsToNumbers = (obj) => reduce(obj, (acc, value, key) => {
+    if (isObject(value)) {
+      acc[key] = convertStringsToNumbers(value);
       return acc;
-    }, {});
-  };
+    }
 
-  return checkNumbers(parsedData);
+    /* ini библиотека во время парсинга подменяет числа на строки
+    *  здесь я конвертирую строки в число, и если это например '11'
+    * то мы получим число 11, иначе это другой типа
+    * и мы его не трогаем */
+    const parsed = parseInt(value, 10);
+    if (parsed) {
+      acc[key] = parsed;
+      return acc;
+    }
+
+    acc[key] = obj[key];
+    return acc;
+  }, {});
+
+  return convertStringsToNumbers(parsedData);
 };
 
-const ParserType = {
-  '.json': JSON.parse,
-  '.yaml': yaml.safeLoad,
-  '.ini': iniParse,
+const PARSERS_MAPPING = {
+  [fileFormats.JSON]: JSON.parse,
+  [fileFormats.YAML]: yaml.safeLoad,
+  [fileFormats.INI]: parseIni,
 };
 
-export default (fileExtension) => ParserType[fileExtension];
+export default (format) => PARSERS_MAPPING[format];

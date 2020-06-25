@@ -11,6 +11,5 @@ commander
   .arguments('<filepath1> <filepath2>')
   .action((firstFilePath, secondFilePath) => {
     console.log(generateDiff(firstFilePath, secondFilePath, commander.format));
-  });
-
-commander.parse(process.argv);
+  })
+  .parse(process.argv);
