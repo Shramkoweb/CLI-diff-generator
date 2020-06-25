@@ -1,4 +1,5 @@
-import _ from 'lodash';
+import keys from 'lodash/keys';
+import isObject from 'lodash/isObject';
 
 import { nodeStates } from '../ast.js';
 
@@ -16,13 +17,13 @@ const makeStylishFormat = (diff, treeDepth = 0) => {
 
   const stringify = (data) => {
     const stringifyObject = (object) => {
-      const string = _.keys(object)
+      const string = keys(object)
         .map((key) => `${nestedObjectIndent}${key}:  ${stringify(object[key])}`)
         .join('\n');
 
       return `{\n${string}\n${largeIndent}}`;
     };
-    return _.isObject(data) ? stringifyObject(data) : `${data}`;
+    return isObject(data) ? stringifyObject(data) : `${data}`;
   };
 
   const nodeStateToFormatting = {
