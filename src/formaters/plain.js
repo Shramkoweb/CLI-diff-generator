@@ -3,8 +3,11 @@ import _ from 'lodash';
 import { nodeStates } from '../ast.js';
 
 const stringify = (value) => {
-  const formattedData = (typeof value === 'string') ? `'${value}'` : value;
-  return (_.isObject(value)) ? '[complex value]' : formattedData;
+  if (_.isObject(value)) {
+    return '[complex value]';
+  }
+
+  return _.isString(value) ? `'${value}'` : value;
 };
 
 const makePlainFormat = (diff, path = '') => {
