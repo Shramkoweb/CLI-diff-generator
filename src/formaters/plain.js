@@ -20,7 +20,7 @@ const formatNodes = (nodes, path = '') => {
     [nodeStates.UNCHANGED]: () => [],
   };
 
-  return nodes.flatMap((element) => nodeStateToFormatting[element.state](element)).join('\n');
+  return nodes.flatMap((node) => nodeStateToFormatting[node.state](node)).join('\n');
 };
 
 const makePlainFormat = (diff) => formatNodes(diff);
