@@ -18,8 +18,8 @@ const parseIni = (data) => {
     *  здесь я конвертирую строки в число, и если это например '11'
     * то мы получим число 11, иначе это другой типа
     * и мы его не трогаем */
-    const parsed = parseInt(value, 10);
-    if (parsed) {
+    const parsed = parseFloat(value);
+    if (Number.isFinite(parsed)) {
       acc[key] = parsed;
       return acc;
     }
