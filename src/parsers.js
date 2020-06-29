@@ -37,4 +37,4 @@ const PARSERS_MAPPING = {
   [fileFormats.INI]: parseIni,
 };
 
-export default (format) => PARSERS_MAPPING[format];
+export default (data, format) => PARSERS_MAPPING[format](data);
