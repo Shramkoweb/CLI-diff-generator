@@ -11,18 +11,18 @@ const stringify = (value) => {
   return _isString(value) ? `'${value}'` : value;
 };
 
-const makePlainFormat = (diff, path = '') => {
+const formatNodes = (nodes, path = '') => {
   const nodeStateToFormatting = {
     [nodeStates.ADDED]: (node) => `Property '${path}${node.name}' was added with value: ${stringify(node.value)}`,
     [nodeStates.DELETED]: (node) => `Property '${path}${node.name}' was deleted`,
-    [nodeStates.NESTED]: (node) => makePlainFormat(node.children, `${path.concat(node.name, '.')}`),
+    [nodeStates.NESTED]: (node) => formatNodes(node.children, `${path.concat(node.name, '.')}`),
     [nodeStates.CHANGED]: (node) => `Property '${path}${node.name}' was changed from ${stringify(node.removedValue)} to ${stringify(node.addedValue)}`,
     [nodeStates.UNCHANGED]: () => [],
   };
 
-  return diff
-    .flatMap((element) => nodeStateToFormatting[element.state](element))
-    .join('\n');
+  return nodes.flatMap((element) => nodeStateToFormatting[element.state](element)).join('\n');
 };
+
+const makePlainFormat = (diff) => formatNodes(diff);
 
 export default makePlainFormat;
