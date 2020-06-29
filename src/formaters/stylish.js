@@ -21,7 +21,8 @@ const stringify = (data, treeDepth) => {
   return _isObject(data) ? stringifyObject(data) : `${data}`;
 };
 
-const formatNode = (node, treeDepth, pretty) => {
+const formatNodes = (nodes, treeDepth = 0) => {
+  const nestedIdent = getIndent(treeDepth * indentSize);
   const defaultIndentLength = treeDepth * indentSize;
   const largeIndent = getIndent(defaultIndentLength + indentSize);
   const smallIndent = getIndent(defaultIndentLength + indentSize / 2);
@@ -30,7 +31,7 @@ const formatNode = (node, treeDepth, pretty) => {
     [nodeStates.ADDED]: ({ name, value }) => `${smallIndent}+ ${name}: ${stringify(value, treeDepth)}`,
     [nodeStates.DELETED]: ({ name, value }) => `${smallIndent}- ${name}: ${stringify(value, treeDepth)}`,
     [nodeStates.UNCHANGED]: ({ name, value }) => `${largeIndent}${name}: ${stringify(value, treeDepth)}`,
-    [nodeStates.NESTED]: ({ name, children }) => `${largeIndent}${name}: ${pretty(children, treeDepth + 1)}`,
+    [nodeStates.NESTED]: ({ name, children }) => `${largeIndent}${name}: ${formatNodes(children, treeDepth + 1)}`,
     [nodeStates.CHANGED]: ({ name, addedValue, removedValue }) => {
       const getAddString = nodeStateToFormatting[nodeStates.ADDED];
       const getRemovedString = nodeStateToFormatting[nodeStates.DELETED];
@@ -42,17 +43,13 @@ const formatNode = (node, treeDepth, pretty) => {
     },
   };
 
-  return nodeStateToFormatting[node.state](node);
-};
-
-const pretty = (diff, treeDepth = 0) => {
-  const nestedIdent = getIndent(treeDepth * indentSize);
-
-  const formattedDiff = diff
-    .flatMap((element) => formatNode(element, treeDepth, pretty))
+  const formattedDiff = nodes
+    .flatMap((node) => nodeStateToFormatting[node.state](node))
     .join('\n');
 
   return `{\n${formattedDiff}\n${nestedIdent}}`;
 };
+
+const pretty = (diff) => formatNodes(diff);
 
 export default pretty;
