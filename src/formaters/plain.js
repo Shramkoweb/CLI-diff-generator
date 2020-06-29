@@ -1,14 +1,14 @@
-import isObject from 'lodash/isObject.js';
-import isString from 'lodash/isString.js';
+import _isObject from 'lodash/isObject.js';
+import _isString from 'lodash/isString.js';
 
 import { nodeStates } from '../constants.js';
 
 const stringify = (value) => {
-  if (isObject(value)) {
+  if (_isObject(value)) {
     return '[complex value]';
   }
 
-  return isString(value) ? `'${value}'` : value;
+  return _isString(value) ? `'${value}'` : value;
 };
 
 const makePlainFormat = (diff, path = '') => {

@@ -1,15 +1,15 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
-import isObject from 'lodash/isObject.js';
-import reduce from 'lodash/reduce.js';
+import _isObject from 'lodash/isObject.js';
+import _reduce from 'lodash/reduce.js';
 
 import { fileFormats } from './constants.js';
 
 const parseIni = (data) => {
   const parsedData = ini.parse(data);
 
-  const convertStringsToNumbers = (obj) => reduce(obj, (acc, value, key) => {
-    if (isObject(value)) {
+  const convertStringsToNumbers = (obj) => _reduce(obj, (acc, value, key) => {
+    if (_isObject(value)) {
       acc[key] = convertStringsToNumbers(value);
       return acc;
     }

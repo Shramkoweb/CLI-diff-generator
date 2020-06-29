@@ -1,17 +1,17 @@
-import union from 'lodash/union.js';
-import isObject from 'lodash/isObject.js';
-import keys from 'lodash/keys.js';
-import has from 'lodash/has.js';
+import _union from 'lodash/union.js';
+import _isObject from 'lodash/isObject.js';
+import _keys from 'lodash/keys.js';
+import _has from 'lodash/has.js';
 import { nodeStates } from './constants.js';
 
 const generateAst = (firstData, secondData) => {
-  const unitedKeys = union(keys(firstData), keys(secondData)).sort();
+  const keys = _union(_keys(firstData), _keys(secondData)).sort();
 
-  return unitedKeys.map((key) => {
+  return keys.map((key) => {
     const firstValue = firstData[key];
     const secondValue = secondData[key];
 
-    if (!has(secondData, key)) {
+    if (!_has(secondData, key)) {
       return {
         name: key,
         state: nodeStates.DELETED,
@@ -19,7 +19,7 @@ const generateAst = (firstData, secondData) => {
       };
     }
 
-    if (!has(firstData, key)) {
+    if (!_has(firstData, key)) {
       return {
         name: key,
         state: nodeStates.ADDED,
@@ -27,7 +27,7 @@ const generateAst = (firstData, secondData) => {
       };
     }
 
-    if (isObject(firstValue) && isObject(secondValue)) {
+    if (_isObject(firstValue) && _isObject(secondValue)) {
       return {
         name: key,
         state: nodeStates.NESTED,
