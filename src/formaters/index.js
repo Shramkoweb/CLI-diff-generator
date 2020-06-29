@@ -1,8 +1,8 @@
-import makeStylishFormat from './stylish.js';
+import pretty from './stylish.js';
 import makePlainFormat from './plain.js';
 
 export const FORMATTERS_MAPPING = {
-  stylish: makeStylishFormat,
+  stylish: pretty,
   plain: makePlainFormat,
   json: JSON.stringify,
 };
