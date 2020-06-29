@@ -1,7 +1,7 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
-import isObject from 'lodash/isObject';
-import reduce from 'lodash/reduce';
+import isObject from 'lodash/isObject.js';
+import reduce from 'lodash/reduce.js';
 
 import { fileFormats } from './constants.js';
 

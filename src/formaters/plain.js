@@ -1,5 +1,5 @@
-import isObject from 'lodash/isObject';
-import isString from 'lodash/isString';
+import isObject from 'lodash/isObject.js';
+import isString from 'lodash/isString.js';
 
 import { nodeStates } from '../constants.js';
 

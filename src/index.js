@@ -12,8 +12,8 @@ export default (firstFilePath, secondFilePath, formatName = 'stylish') => {
   const firstFileContent = fs.readFileSync(firstFilePath, 'utf-8');
   const secondFileContent = fs.readFileSync(secondFilePath, 'utf-8');
 
-  const firstFileData = parse(firstFileFormat, firstFileContent);
-  const secondFileData = parse(secondFileFormat, secondFileContent);
+  const firstFileData = parse(firstFileContent, firstFileFormat);
+  const secondFileData = parse(secondFileContent, secondFileFormat);
 
   const ast = generateAst(firstFileData, secondFileData);
 

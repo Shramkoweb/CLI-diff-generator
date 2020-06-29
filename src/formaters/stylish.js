@@ -1,7 +1,7 @@
-import keys from 'lodash/keys';
-import isObject from 'lodash/isObject';
+import keys from 'lodash/keys.js';
+import isObject from 'lodash/isObject.js';
 
-import { nodeStates } from '../constants';
+import { nodeStates } from '../constants.js';
 
 const indentSize = 4;
 
