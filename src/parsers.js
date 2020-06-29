@@ -9,9 +9,11 @@ const parseIni = (data) => {
   const parsedData = ini.parse(data);
 
   const convertStringsToNumbers = (obj) => _reduce(obj, (acc, value, key) => {
+    const accumulator = { ...acc };
+
     if (_isObject(value)) {
-      acc[key] = convertStringsToNumbers(value);
-      return acc;
+      accumulator[key] = convertStringsToNumbers(value);
+      return accumulator;
     }
 
     /* ini библиотека во время парсинга подменяет числа на строки
@@ -20,12 +22,12 @@ const parseIni = (data) => {
     * и мы его не трогаем */
     const parsed = parseFloat(value);
     if (Number.isFinite(parsed)) {
-      acc[key] = parsed;
-      return acc;
+      accumulator[key] = parsed;
+      return accumulator;
     }
 
-    acc[key] = obj[key];
-    return acc;
+    accumulator[key] = obj[key];
+    return accumulator;
   }, {});
 
   return convertStringsToNumbers(parsedData);
