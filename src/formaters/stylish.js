@@ -7,13 +7,16 @@ const indentSize = 4;
 
 const getIndent = (depth) => ' '.repeat(depth);
 
-const stringify = (data, nestedObjectIndent, largeIndent) => {
+const stringify = (data, treeDepth) => {
+  const beforeKeyIndent = getIndent((treeDepth + 1) * indentSize + indentSize);
+  const closeBracketIndent = getIndent(treeDepth * indentSize + indentSize);
+
   const stringifyObject = (object) => {
     const string = _keys(object)
-      .map((key) => `${nestedObjectIndent}${key}:  ${stringify(object[key], nestedObjectIndent, largeIndent)}`)
+      .map((key) => `${beforeKeyIndent}${key}:  ${stringify(object[key], treeDepth)}`)
       .join('\n');
 
-    return `{\n${string}\n${largeIndent}}`;
+    return `{\n${string}\n${closeBracketIndent}}`;
   };
   return _isObject(data) ? stringifyObject(data) : `${data}`;
 };
@@ -21,14 +24,13 @@ const stringify = (data, nestedObjectIndent, largeIndent) => {
 const pretty = (diff, treeDepth = 0) => {
   const defaultIndentLength = treeDepth * indentSize;
   const largeIndent = getIndent(defaultIndentLength + indentSize);
-  const nestedObjectIndent = getIndent((treeDepth + 1) * indentSize + indentSize);
   const smallIndent = getIndent(defaultIndentLength + indentSize / 2);
   const nestedIdent = getIndent(defaultIndentLength);
 
   const nodeStateToFormatting = {
-    [nodeStates.ADDED]: ({ name, value }) => `${smallIndent}+ ${name}: ${stringify(value, nestedObjectIndent, largeIndent)}`,
-    [nodeStates.DELETED]: ({ name, value }) => `${smallIndent}- ${name}: ${stringify(value, nestedObjectIndent, largeIndent)}`,
-    [nodeStates.UNCHANGED]: ({ name, value }) => `${largeIndent}${name}: ${stringify(value, nestedObjectIndent, largeIndent)}`,
+    [nodeStates.ADDED]: ({ name, value }) => `${smallIndent}+ ${name}: ${stringify(value, treeDepth)}`,
+    [nodeStates.DELETED]: ({ name, value }) => `${smallIndent}- ${name}: ${stringify(value, treeDepth)}`,
+    [nodeStates.UNCHANGED]: ({ name, value }) => `${largeIndent}${name}: ${stringify(value, treeDepth)}`,
     [nodeStates.NESTED]: ({ name, children }) => `${largeIndent}${name}: ${pretty(children, treeDepth + 1)}`,
     [nodeStates.CHANGED]: (node) => {
       const { name, addedValue, removedValue } = node;
