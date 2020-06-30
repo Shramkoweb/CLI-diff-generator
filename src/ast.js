@@ -1,8 +1,8 @@
-import _union from 'lodash/union.js';
-import _isObject from 'lodash/isObject.js';
-import _keys from 'lodash/keys.js';
-import _has from 'lodash/has.js';
-import { nodeStates } from './constants.js';
+import _union from 'lodash/union';
+import _isObject from 'lodash/isObject';
+import _keys from 'lodash/keys';
+import _has from 'lodash/has';
+import { nodeStates } from './constants';
 
 const generateAst = (firstData, secondData) => {
   const keys = _union(_keys(firstData), _keys(secondData)).sort();

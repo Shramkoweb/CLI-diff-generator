@@ -1,9 +1,9 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
-import _isObject from 'lodash/isObject.js';
-import _reduce from 'lodash/reduce.js';
+import _isObject from 'lodash/isObject';
+import _reduce from 'lodash/reduce';
 
-import { fileFormats } from './constants.js';
+import { fileFormats } from './constants';
 
 const parseIni = (data) => {
   const parsedData = ini.parse(data);

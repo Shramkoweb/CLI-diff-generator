@@ -1,7 +1,7 @@
 #!/usr/bin/env node --experimental-json-modules
 import commander from 'commander';
 
-import generateDiff from '../src/index.js';
+import generateDiff from '../src/index';
 import packageJsonFile from '../package.json';
 
 commander

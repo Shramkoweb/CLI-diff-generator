@@ -1,5 +1,5 @@
-import pretty from './stylish.js';
-import makePlainFormat from './plain.js';
+import pretty from './stylish';
+import makePlainFormat from './plain';
 
 export const FORMATTERS_MAPPING = {
   stylish: pretty,
