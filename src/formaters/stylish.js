@@ -22,7 +22,7 @@ const stringify = (data, treeDepth) => {
 };
 
 const formatNodes = (nodes, treeDepth = 0) => {
-  const nestedIdent = getIndent(treeDepth * indentSize);
+  const nestedIndent = getIndent(treeDepth * indentSize);
   const defaultIndentLength = treeDepth * indentSize;
   const largeIndent = getIndent(defaultIndentLength + indentSize);
   const smallIndent = getIndent(defaultIndentLength + indentSize / 2);
@@ -47,7 +47,7 @@ const formatNodes = (nodes, treeDepth = 0) => {
     .flatMap((node) => nodeStateToFormatting[node.state](node))
     .join('\n');
 
-  return `{\n${formattedDiff}\n${nestedIdent}}`;
+  return `{\n${formattedDiff}\n${nestedIndent}}`;
 };
 
 const pretty = (diff) => formatNodes(diff);
