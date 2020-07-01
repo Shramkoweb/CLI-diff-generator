@@ -1,6 +1,6 @@
-// utils
 import path from 'path';
 import fs from 'fs';
+
 import { EXTENSION_MAPPING } from './constants.js';
 
 export const getFixturePath = (fileName) => path.resolve('__tests__', '__fixtures__', fileName);

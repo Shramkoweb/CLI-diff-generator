@@ -2,6 +2,7 @@ import _union from 'lodash/union.js';
 import _isObject from 'lodash/isObject.js';
 import _keys from 'lodash/keys.js';
 import _has from 'lodash/has.js';
+
 import { nodeStates } from './constants.js';
 
 const generateAst = (firstData, secondData) => {
