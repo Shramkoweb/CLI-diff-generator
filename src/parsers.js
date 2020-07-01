@@ -3,7 +3,7 @@ import ini from 'ini';
 import _isObject from 'lodash/isObject';
 import _reduce from 'lodash/reduce';
 
-import { fileFormats } from './constants';
+import { fileFormats } from './constants.js';
 
 const parseIni = (data) => {
   const parsedData = ini.parse(data);

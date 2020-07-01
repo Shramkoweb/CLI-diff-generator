@@ -1,6 +1,5 @@
-import { getFixtureContent, getFixturePath } from '../src/utils';
-
-import generateDiff from '../src/index';
+import { getFixtureContent, getFixturePath } from '../src/utils.js';
+import generateDiff from '../src/index.js';
 
 describe('Test generateDiff function', () => {
   let referenceResult;
