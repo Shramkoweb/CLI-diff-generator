@@ -1,6 +1,6 @@
 {
   "name": "diff-generator",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Compares two configuration files and shows a difference.",
   "main": "./src/index.js",
   "type": "module",
