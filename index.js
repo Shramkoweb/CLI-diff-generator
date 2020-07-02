@@ -1,10 +1,10 @@
 import path from 'path';
 import fs from 'fs';
 
-import parse from './parsers.js';
-import generateAst from './ast.js';
-import format from './formaters/index.js';
-import { getFileFormat } from './utils.js';
+import parse from './src/parsers.js';
+import generateAst from './src/ast.js';
+import format from './src/formaters/index.js';
+import { getFileFormat } from './src/utils.js';
 
 export default (firstFilePath, secondFilePath, formatName = 'stylish') => {
   const firstFileFormat = getFileFormat(path.extname(firstFilePath));
