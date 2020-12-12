@@ -35,7 +35,7 @@
   "homepage": "https://github.com/Shramkoweb/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^5.1.0",
-    "ini": "^1.3.5",
+    "ini": "^1.3.6",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.19"
   },
