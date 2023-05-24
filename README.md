@@ -36,3 +36,5 @@ Section "group2" deleted.
 #### Сравнение файлов с PLAIN выводом.
 
 [![asciicast](https://asciinema.org/a/7q3RtpIpRTu6uEtIIrGgT32fb.svg)](https://asciinema.org/a/7q3RtpIpRTu6uEtIIrGgT32fb)
+
+Created by [Serhii Shramko](https://shramko.dev/). This is my personal website and blog. 
