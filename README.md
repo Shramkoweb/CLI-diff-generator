@@ -1,6 +1,4 @@
 <a href="https://codeclimate.com/github/Shramkoweb/frontend-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/8b6a6d577e7c7699a52f/maintainability" /></a> 
-<a href="https://codeclimate.com/github/Shramkoweb/frontend-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/8b6a6d577e7c7699a52f/test_coverage" /></a>
-[![Lint](https://github.com/Shramkoweb/frontend-project-lvl2/workflows/Lint/badge.svg)](https://github.com/Shramkoweb/frontend-project-lvl2/actions?query=workflow%3ALint)
 
 ## Description
 This project implements a utility for finding differences in configuration files.
