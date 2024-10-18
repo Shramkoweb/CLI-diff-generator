@@ -2,20 +2,21 @@
 <a href="https://codeclimate.com/github/Shramkoweb/frontend-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/8b6a6d577e7c7699a52f/test_coverage" /></a>
 [![Lint](https://github.com/Shramkoweb/frontend-project-lvl2/workflows/Lint/badge.svg)](https://github.com/Shramkoweb/frontend-project-lvl2/actions?query=workflow%3ALint)
 
-## Описание
-В рамках данного проекта необходимо реализовать утилиту для поиска отличий в конфигурационных файлах.
+## Description
+This project implements a utility for finding differences in configuration files.
 
-## Для работы необходимо
- - node 14+
- - CLI  😄
+##Requirements
 
-### Возможности утилиты:
+- Node.js 14+
+- CLI 😄
 
-- Поддержка разных форматов
-- Генерация отчета в виде plain text, pretty и json
+## Utility Features:
+
+- Support for various file formats (JSON, YAML, INI)
+- Generates reports in **plain text**, **pretty**, and **JSON** formats
 
 
-#### Пример использования:
+## Example Usage:
 
 ```shell script
 $ gendiff --format plain first-config.ini second-config.ini
@@ -25,16 +26,16 @@ Setting "group1.baz" changed from "bas" to "bars".
 Section "group2" deleted.
 ```
 
-#### Сравнение файлов с JSON выводом.
+### File Comparison with JSON Output:
 
 [![asciicast](https://asciinema.org/a/Mf12iQsBgMs3KtShNDxeY2t4S.svg)](https://asciinema.org/a/Mf12iQsBgMs3KtShNDxeY2t4S)
 
-#### Сравнение файлов с STYLISH выводом.
+### File Comparison with STYLISH Output:
 
 [![asciicast](https://asciinema.org/a/l0lTgJzWPUOsGidSmaptSsiHj.svg)](https://asciinema.org/a/l0lTgJzWPUOsGidSmaptSsiHj)
 
-#### Сравнение файлов с PLAIN выводом.
+### File Comparison with PLAIN Output:
 
 [![asciicast](https://asciinema.org/a/7q3RtpIpRTu6uEtIIrGgT32fb.svg)](https://asciinema.org/a/7q3RtpIpRTu6uEtIIrGgT32fb)
 
-Created by [Serhii Shramko](https://shramko.dev/). This is my personal website and blog. 
+Created by [Serhii Shramko](https://shramko.dev/).
