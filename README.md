@@ -3,7 +3,7 @@
 ## Description
 This project implements a utility for finding differences in configuration files.
 
-##Requirements
+## Requirements
 
 - Node.js 14+
 - CLI 😄
