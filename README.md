@@ -7,6 +7,7 @@ This project implements a utility for finding differences in configuration files
 
 - Node.js 14+
 - CLI 😄
+- --experimental-vm-modules falg for testing purpose
 
 ## Utility Features:
 
