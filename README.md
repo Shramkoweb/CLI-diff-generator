@@ -1,4 +1,4 @@
-<a href="https://codeclimate.com/github/Shramkoweb/frontend-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/8b6a6d577e7c7699a52f/maintainability" /></a> 
+<a href="https://codeclimate.com/github/Shramkoweb/CLI-diff-generator/maintainability"><img src="https://api.codeclimate.com/v1/badges/f1e7666280f809e3bb60/maintainability" /></a>
 
 ## Description
 This project implements a utility for finding differences in configuration files.
